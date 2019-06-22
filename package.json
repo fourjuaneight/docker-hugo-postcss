@@ -1,0 +1,18 @@
+{
+  "name": "docker-hugo-postcss",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fourjuaneight/docker-hugo-postcss.git"
+  },
+  "author": "Juan Villela",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fourjuaneight/docker-hugo-postcss/issues"
+  },
+  "homepage": "https://github.com/fourjuaneight/docker-hugo-postcss#readme",
+  "devDependencies": {
+    "postcss-cli": "^6.0.0",
+    "postcss-preset-env": "^6.6.0"
+  }
+}
