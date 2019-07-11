@@ -1,5 +1,5 @@
 OWNER ?= fourjuaneight
-REPO ?= hugo-gulp
+REPO ?= hugo-postcss
 VERSION ?= latest
 
 build:
