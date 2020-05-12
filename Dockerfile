@@ -13,6 +13,7 @@ RUN apk upgrade -U -a \
   curl \
   ca-certificates \
   git \
+  libstdc++ \
   openssh-client \
   && rm -rf /var/cache/* \
   && mkdir /var/cache/apk
