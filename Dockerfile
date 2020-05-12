@@ -1,5 +1,5 @@
 # Use Alpine Linux as our base image so that we minimize the overall size our final container, and minimize the surface area of packages that could be out of date.
-FROM mhart/alpine-node:12.16.0 as hugo
+FROM node:12.6.0-alpine as hugo
 
 LABEL description="Docker container for building websites with the Hugo static site generator and PostCSS."
 LABEL maintainer="Juan Villela <https://www.juanvillela.dev>"
@@ -20,7 +20,7 @@ RUN TAG_LATEST_URL="$(curl -LsI -o /dev/null -w %{url_effective} https://github.
     && mv hugo /usr/local/bin/hugo \
     && chmod +x /usr/local/bin/hugo
 
-FROM mhart/alpine-node:12.16.0
+FROM node:12.6.0-alpine
 
 COPY --from=hugo /usr/local/bin/hugo /usr/local/bin/hugo
 
