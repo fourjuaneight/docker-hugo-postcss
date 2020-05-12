@@ -1,15 +1,17 @@
 # Use Alpine Linux as our base image so that we minimize the overall size our final container, and minimize the surface area of packages that could be out of date.
-FROM node:12.16.0 as hugo
+FROM mhart/alpine-node:12.16.0 as hugo
 
 LABEL description="Docker container for building websites with the Hugo static site generator and PostCSS."
 LABEL maintainer="Juan Villela <https://www.juanvillela.dev>"
 
-# Install npm dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied where available
-COPY package*.json ./
-RUN npm i -g
+# Build dependencies
+RUN apk upgrade -U -a \
+  && apk add --no-cache \
+  curl \
+  && rm -rf /var/cache/* \
+  && mkdir /var/cache/apk
 
-# Install HUGO
+# Install latest Hugo version
 RUN TAG_LATEST_URL="$(curl -LsI -o /dev/null -w %{url_effective} https://github.com/gohugoio/hugo/releases/latest)" \
     && echo ${TAG_LATEST_URL} \
     && HUGO_VERSION="$(echo ${TAG_LATEST_URL} | egrep -o '[0-9]+\.[0-9]+\.?[0-9]*')" \
@@ -18,4 +20,10 @@ RUN TAG_LATEST_URL="$(curl -LsI -o /dev/null -w %{url_effective} https://github.
     && mv hugo /usr/local/bin/hugo \
     && chmod +x /usr/local/bin/hugo
 
-RUN hugo version
+FROM mhart/alpine-node:12.16.0
+
+COPY --from=hugo /usr/local/bin/hugo /usr/local/bin/hugo
+
+# Install npm dependencies
+COPY package*.json ./
+RUN npm install
