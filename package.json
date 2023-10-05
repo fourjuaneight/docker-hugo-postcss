@@ -13,6 +13,6 @@
   "homepage": "https://github.com/fourjuaneight/docker-hugo-postcss#readme",
   "devDependencies": {
     "postcss-cli": "^10.0.0",
-    "postcss-preset-env": "^6.6.0"
+    "postcss-preset-env": "^9.1.4"
   }
 }
